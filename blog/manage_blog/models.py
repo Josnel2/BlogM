@@ -3,6 +3,7 @@ from django.db import models
 # Create your models here.
 class CreateBlog(models.Model):
     title = models.CharField(max_length=100)
+    author = models.CharField(max_length=100)
     slug = models.SlugField()
     intro = models.TextField()
     body = models.TextField()
@@ -18,7 +19,7 @@ class CreateBlog(models.Model):
 class Comment(models.Model):
     post= models.ForeignKey(CreateBlog, related_name='comments', on_delete=models.CASCADE)
     email= models.EmailField()
-    name = models.CharField(max_length=100)
+    author = models.CharField(max_length=255, default='Anonymous')  
     body = models.TextField()
     date_added = models.DateTimeField(auto_now_add=True)
     

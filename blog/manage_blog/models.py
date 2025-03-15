@@ -1,13 +1,13 @@
 from django.db import models
 
 # Create your models here.
-class CreateBlog(models.Model):
+class Blog(models.Model): #comment tu appelles un modèle CreateBlog ?
     title = models.CharField(max_length=100)
     author = models.CharField(max_length=100)
     slug = models.SlugField()
     intro = models.TextField()
     body = models.TextField()
-    image = models.ImageField(upload_to='media/')
+    image = models.ImageField(upload_to='media/', null=True, blank=True)
     date_added = models.DateTimeField(auto_now_add=True)
     
     class Meta:
@@ -17,7 +17,7 @@ class CreateBlog(models.Model):
         return self.title
 
 class Comment(models.Model):
-    post= models.ForeignKey(CreateBlog, related_name='comments', on_delete=models.CASCADE)
+    post= models.ForeignKey(Blog, related_name='comments', on_delete=models.CASCADE)
     email= models.EmailField()
     author = models.CharField(max_length=255, default='Anonymous')  
     body = models.TextField()
